@@ -20,6 +20,20 @@ int showMenuText(int errorCode){
     }
 }
 
+char* errorCodeDisplay(int errorCode){
+    char* response = NULL ;
+    if (errorCode == 101){
+        // Image not loaded
+        response = "L'image n'as pas pu être chargée correctement" ;
+    }
+    else if (errorCode == 102){
+        // File is of wrong format
+        response = "L'image n'est pas du format attendu (utiliser des .ppm ou .pgm)";
+    }
+    return response;
+}
+
+
 void showChoiceMenu(){
     printf("1 : Choisir une image");
     printf("2 : Ajouter des filtres à votre image");
