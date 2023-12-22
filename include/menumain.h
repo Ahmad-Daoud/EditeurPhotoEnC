@@ -1,6 +1,8 @@
-#ifndef menumain_h
-#define menumain_h
+#ifndef MENUMAIN_H
+#define MENUMAIN_H
 
-int showeMenuText(int errorCode);
+int showMenuText(int errorCode);
 void showChoiceMenu();
+char* errorCodeDisplay(int errorCode);
+
 #endif
