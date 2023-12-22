@@ -1,28 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "menuMain.h"
+#include "../include/menuMain.h"
 
-void showChoiceMenu(){
-    printf("1 : Choisir une image\n");
-    printf("2 : Ajouter des filtres à votre image\n");
-    printf("3 : Sauvegarder votre image\n");
-    printf("4 : Quitter l'application\n");
-}
 
 int showMenuText(int errorCode){
     // Clear la console
     int choixMenu;
     
     if (errorCode == 0){
-        printf("Bonjour! Veuillez choisir une option : ");
+        printf("Bonjour! Veuillez choisir une option : \n");
     }
     else {
         printf("%s\n", errorCodeDisplay(errorCode));
     }
     showChoiceMenu();
     scanf("%d", &choixMenu);
-    int imageLoaded = loadImage(); 
+    int imageLoaded = 1; //loadImage(); 
     if (imageLoaded == 1){
         // L'image est chargée correctement
     }
@@ -44,4 +38,10 @@ char* errorCodeDisplay(int errorCode){
         response = "L'image n'est pas du format attendu (utiliser des .ppm ou .pgm)";
     }
     return response;
+}
+void showChoiceMenu(){
+    printf("1 : Choisir une image\n");
+    printf("2 : Ajouter des filtres à votre image\n");
+    printf("3 : Sauvegarder votre image\n");
+    printf("0 : Quitter l'application\n");
 }
