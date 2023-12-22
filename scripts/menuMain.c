@@ -7,7 +7,6 @@
 int showMenuText(int errorCode){
     // Clear la console
     int choixMenu;
-    
     if (errorCode == 0){
         printf("Bonjour! Veuillez choisir une option : \n");
     }
@@ -22,8 +21,7 @@ int showMenuText(int errorCode){
     }
     else {
         // L'image n'est pas chargée
-        errorCode = 101; 
-        
+        errorCode = 101;
         showMenuText(errorCode); 
     }
     return 0;
