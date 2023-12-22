@@ -2,12 +2,22 @@
 #include <stdlib.h>
 #include <string.h>
 
-int showMenuText(){
+int showMenuText(int errorCode){
+    // Clear la console
     int choixMenu;
     printf("Bonjour! Veuillez choisir une option : ");
     showMenu();
     scanf("%d", choixMenu);
     int imageLoaded = loadImage();
+    if (imageLoaded == 1){
+        // L'image est chargée correctement
+        
+    }
+    else {
+        // L'image n'est pas chargée
+        int errorCode = 101;
+        showMenuText(errorCode);
+    }
 }
 
 void showChoiceMenu(){
