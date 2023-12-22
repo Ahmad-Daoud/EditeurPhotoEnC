@@ -8,8 +8,8 @@ Ce projet a été fait pour un cours en c avancé à l'ESGI. Il a pour but de cr
 - ## I - Introduction
 - ## II - Modes d'utilisations 
 - ## III - Fonctionalités
-### 1 - Ajoutées
-### 2 - A ajouter 
+    ### 1 - Ajoutées
+    ### 2 - A ajouter 
 - ## IV - Bibliographie
 
 
