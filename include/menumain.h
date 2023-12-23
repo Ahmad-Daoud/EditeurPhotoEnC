@@ -4,5 +4,6 @@
 int showMenuText(int errorCode);
 void showChoiceMenu();
 char* errorCodeDisplay(int errorCode);
+void funChoixMenu(int choixMenu);
 
 #endif
