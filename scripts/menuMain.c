@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "menuMain.h"
-#include "openImage.h"
+#include "../include/menumain.h"
+#include "../include/openImage.h"
 
 
 int showMenuText(int errorCode){
@@ -42,6 +42,7 @@ void funChoixMenu(int choixMenu){
     }
     else if(choixMenu == 1){
         // Choisir une image
+        loadImage();
     }
     else if(choixMenu == 2){
         // ajouter des filtres

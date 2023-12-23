@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "openImage.h"
-#include "imageCreate.h"
+#include "../include/openImage.h"
+#include "../include/imageCreate.h"
 
 
 int isLoadedPGM = 0;
 int isLoadedPPM = 0;
-imagePGM* loadedImagePGM = NULL;
-imagePPM* loadedImagePPM = NULL;
+imagePGM* loadedImagePPM = NULL;
+imagePPM* loadedImagePGM = NULL;
+
 
 
 loadPPM(FILE *imageLoad){
@@ -22,8 +23,8 @@ loadPGM(FILE *imageLoad){
 
 
 char* getFileExtension(char* imageName){
-    const char *dot = strrchr(imageName, ".");
-    if (!dot || dot == imageName){
+    const char *dot = strrchr(imageName, '.'); 
+    if (!dot || dot == imageName || dot == imageName + 1) {
         // Pas d'extension ou l'image commence avec un .
         return "";
     }
@@ -33,16 +34,20 @@ char* getFileExtension(char* imageName){
 
 int loadImage(){
     char imageName[100];
-    printf("Veuillez déposer votre image dans le dossier images (format .ppm ou .pgm)");
-    scanf("%s", imageName);
+    printf("Veuillez déposer votre image dans le dossier images (format .ppm ou .pgm) \n");
+    printf(" nom de votre image : ");
+
+
+    scanf("%s", &imageName);
+
     char* extension = getFileExtension(imageName);
     if (strcmp(extension, "") == 0){
-        // Pas d'extension ou le fichier 
+        // Pas d'extension ou le fichier commence avec un .
         return 103;
     }
     else {
         // image chargée correctement
-        if ( extension == "ppm" ||  extension == "pgm"){
+        if (strcmp(extension, "ppm") == 0 || strcmp(extension, "pgm") == 0){
             FILE *imageLoad = fopen(imageName, "rb");
             if (imageLoad == NULL){
                 // image introuvable
