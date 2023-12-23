@@ -15,17 +15,9 @@ int showMenuText(int errorCode){
     }
     showChoiceMenu();
     scanf("%d", &choixMenu);
-    int imageLoaded = 1; //loadImage(); 
-    if (imageLoaded == 1){
-        // L'image est chargée correctement
-    }
-    else {
-        // L'image n'est pas chargée
-        errorCode = 101;
-        showMenuText(errorCode); 
-    }
+
     return 0;
-}
+} 
 
 char* errorCodeDisplay(int errorCode){
     char* response = NULL;
