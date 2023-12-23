@@ -3,6 +3,8 @@
         "stdio.h": "c",
         "stdlib.h": "c",
         "string.h": "c",
-        "menumain.h": "c"
+        "menumain.h": "c",
+        "openimage.h": "c",
+        "imagecreate.h": "c"
     }
 }
