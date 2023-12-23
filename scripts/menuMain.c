@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/menuMain.h"
+#include "menuMain.h"
+#include "openImage.h"
 
 
 int showMenuText(int errorCode){
@@ -15,9 +16,9 @@ int showMenuText(int errorCode){
     }
     showChoiceMenu();
     scanf("%d", &choixMenu);
-
+    funChoixMenu(choixMenu);
     return 0;
-} 
+}
 
 char* errorCodeDisplay(int errorCode){
     char* response = NULL;
@@ -34,4 +35,22 @@ void showChoiceMenu(){
     printf("2 : Ajouter des filtres à votre image\n");
     printf("3 : Sauvegarder votre image\n");
     printf("0 : Quitter l'application\n");
+}
+void funChoixMenu(int choixMenu){
+    if (choixMenu == 0){
+        exit(EXIT_SUCCESS);
+    }
+    else if(choixMenu == 1){
+        // Choisir une image
+    }
+    else if(choixMenu == 2){
+        // ajouter des filtres
+    }
+    else if(choixMenu == 3){
+        /// Sauvegarder image
+    }
+    else {
+        // Mauvais choix
+        showMenuText(1);
+    }
 }

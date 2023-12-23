@@ -1,6 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "openImage.h"
+#include "imageCreate.h"
+
+
+int isLoadedPGM = 0;
+int isLoadedPPM = 0;
+imagePGM* loadedImagePGM = NULL;
+imagePPM* loadedImagePPM = NULL;
+
+
+loadPPM(FILE *imageLoad){
+    printf("Votre image est un ppm");
+}
+
+loadPGM(FILE *imageLoad){
+    printf("Votre image est un pgm");
+}
+
+
+
 char* getFileExtension(char* imageName){
     const char *dot = strrchr(imageName, ".");
     if (!dot || dot == imageName){
@@ -29,7 +49,13 @@ int loadImage(){
                 return 104;
             }
             else {
-                // Image ouverte correctement
+                // Image trouvée correctement
+                if (extension == "ppm"){
+                    loadPPM(imageLoad);
+                }
+                else {
+                    loadPGM(imageLoad);
+                }
                 return 0;
             }
         }
@@ -39,6 +65,3 @@ int loadImage(){
     }
     
 }
-
-
-
