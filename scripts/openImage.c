@@ -12,13 +12,6 @@ imagePPM* loadedImagePGM = NULL;
 
 
 
-loadPPM(FILE *imageLoad){
-    printf("Votre image est un ppm");
-}
-
-loadPGM(FILE *imageLoad){
-    printf("Votre image est un pgm");
-}
 
 
 
@@ -34,12 +27,13 @@ char* getFileExtension(char* imageName){
 
 int loadImage(){
     char imageName[100];
+    char imagePath[100];
+    const char* directory = "input/";
     printf("Veuillez déposer votre image dans le dossier images (format .ppm ou .pgm) \n");
     printf(" nom de votre image : ");
 
-
     scanf("%s", &imageName);
-
+    snprintf(imagePath, sizeof(imagePath), "%s%s", directory, imageName);
     char* extension = getFileExtension(imageName);
     if (strcmp(extension, "") == 0){
         // Pas d'extension ou le fichier commence avec un .
@@ -48,18 +42,20 @@ int loadImage(){
     else {
         // image chargée correctement
         if (strcmp(extension, "ppm") == 0 || strcmp(extension, "pgm") == 0){
-            FILE *imageLoad = fopen(imageName, "rb");
+            int errorCode = 0;
+            FILE *imageLoad = fopen(imagePath, "rb");
             if (imageLoad == NULL){
+                perror("Error opening file");
                 // image introuvable
                 return 104;
             }
             else {
                 // Image trouvée correctement
-                if (extension == "ppm"){
-                    loadPPM(imageLoad);
+                if (strcmp(extension, "ppm") == 0){
+                    createImagePPM(imageLoad);
                 }
                 else {
-                    loadPGM(imageLoad);
+                    createImagePGM(imageLoad);
                 }
                 return 0;
             }

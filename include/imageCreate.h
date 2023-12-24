@@ -13,8 +13,8 @@ typedef struct {
     unsigned char* data;
 } imagePGM;
 
-imagePGM* createImagePGM(int height, int width);
-imagePPM* createImagePPM(int height, int width);
+imagePGM* createImagePGM(FILE* image);
+imagePPM* createImagePPM(FILE* image);
 
 
 #endif
