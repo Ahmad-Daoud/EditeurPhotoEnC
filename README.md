@@ -25,6 +25,7 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
 ### Codes 000 : Erreurs Simple
       - Code 0 : Aucune erreur
       - Code 1 : Mauvais choix menu
+      - Code 2 : Pas d'image à sauvegarder
 ### Codes 100 : Problèmes d'image
       - Code 101 : L'image n'a pas été chargée correctement.
       - Code 102 : L'image n'est pas du format attendu.

@@ -5,7 +5,8 @@
 imagePPM *ppm = NULL;
 imagePGM *pgm = NULL;
 
-
+imageIsLoadedPGM = 0;
+imageIsLoadedPPM = 0;
 
 void allocatePixelsPPM(imagePPM *image){
     image->pixels = (unsigned char *)malloc(image->width * image->height * 3 * sizeof(unsigned char));
@@ -47,5 +48,6 @@ int createImagePPM(FILE* image) {
         free(ppm);
         return 106;
     }
+    imageIsLoadedPPM = 1;
     return 0;
 }

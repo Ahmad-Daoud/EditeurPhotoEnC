@@ -3,17 +3,13 @@
 #include <string.h>
 #include "../include/openImage.h"
 #include "../include/imageCreate.h"
+#include "../include/menumain.h"
 
 
 int isLoadedPGM = 0;
 int isLoadedPPM = 0;
 imagePGM* loadedImagePPM = NULL;
 imagePPM* loadedImagePGM = NULL;
-
-
-
-
-
 
 char* getFileExtension(char* imageName){
     const char *dot = strrchr(imageName, '.'); 
@@ -29,7 +25,7 @@ int loadImage(){
     char imageName[100];
     char imagePath[100];
     const char* directory = "input/";
-    printf("Veuillez déposer votre image dans le dossier images (format .ppm ou .pgm) \n");
+    printf("Veuillez déposer votre image dans le dossier input (format .ppm ou .pgm) \n");
     printf(" nom de votre image : ");
 
     scanf("%s", &imageName);
@@ -55,7 +51,7 @@ int loadImage(){
                     int response = createImagePPM(imageLoad);
                     if (response == 0) {
                         // Image chargée correctement et convertie en struct
-
+                        showMenuText(0);
                     }
                     else {
                         // Erreur

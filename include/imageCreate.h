@@ -16,7 +16,8 @@ typedef struct {
 
 extern imagePPM *ppm;
 extern imagePGM *pgm;
-
+extern int imageIsLoadedPGM;
+extern int imageIsLoadedPPM;
 int createImagePGM(FILE* image);
 int createImagePPM(FILE* image);
 
