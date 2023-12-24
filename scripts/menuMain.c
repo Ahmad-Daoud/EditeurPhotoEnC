@@ -42,7 +42,14 @@ void funChoixMenu(int choixMenu){
     }
     else if(choixMenu == 1){
         // Choisir une image
-        loadImage();
+        int ret = loadImage();
+        if (ret == 0){
+            // image chargée correctement
+        }
+        else {
+            // affichage du menu avec code d'erreur
+            showMenuText(ret);
+        }
     }
     else if(choixMenu == 2){
         // ajouter des filtres

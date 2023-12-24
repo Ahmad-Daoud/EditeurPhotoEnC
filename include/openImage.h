@@ -7,8 +7,6 @@ extern int isLoadedPPM;
 extern imagePGM* loadedImagePPM;
 extern imagePPM* loadedImagePGM;
 
-void loadPPM(FILE* imageLoad);
-void loadPGM(FILE* imageLoad);
 char* getFileExtension(char* imageName);
 int loadImage();
 
