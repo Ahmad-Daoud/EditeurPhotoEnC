@@ -5,7 +5,8 @@
 typedef struct {
     int width;
     int height;
-    unsigned char* data;
+    int max_color_value;
+    unsigned char *pixels;
 } imagePPM;
 typedef struct {
     int width;
@@ -13,8 +14,11 @@ typedef struct {
     unsigned char* data;
 } imagePGM;
 
-imagePGM* createImagePGM(FILE* image);
-imagePPM* createImagePPM(FILE* image);
+extern imagePPM *ppm;
+extern imagePGM *pgm;
+
+int createImagePGM(FILE* image);
+int createImagePPM(FILE* image);
 
 
 #endif

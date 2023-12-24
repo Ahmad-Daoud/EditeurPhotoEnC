@@ -30,5 +30,7 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 102 : L'image n'est pas du format attendu.
       - Code 103 : L'image n'a pas d'extension, ou commence avec un .
       - Code 104 : Image introuvable
+      - Code 105 : Erreur header PPM
+      - Code 106 : Erreur lecture données pixels
 ### Codes 200 : Problèmes de chargement
-      - Code 201 : .
+      - Code 201 : Allocation mémoire échouée.

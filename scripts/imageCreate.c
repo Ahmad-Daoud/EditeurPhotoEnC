@@ -2,49 +2,50 @@
 #include <stdlib.h>
 #include "../include/imageCreate.h"
 
+imagePPM *ppm = NULL;
+imagePGM *pgm = NULL;
 
 
 
-
-
-imagePGM* createImagePGM(FILE* image) {
-    imagePGM* pgm = (imagePGM*)malloc(sizeof(imagePGM));
-
-    // Read PGM header
-    fscanf(image, "P5 %d %d 255\n", &pgm->width, &pgm->height);
-
-    // Allocate memory for pixel data
-    pgm->data = (unsigned char*)malloc(pgm->width * pgm->height * sizeof(unsigned char));
-
-    // Read pixel data
-    fread(pgm->data, sizeof(unsigned char), pgm->width * pgm->height, image);
-
-
-    int errorCode = 0 ;
-    printf("Création PGM");
-    scanf("%d", &errorCode);
-
-    return pgm;
+void allocatePixelsPPM(imagePPM *image){
+    image->pixels = (unsigned char *)malloc(image->width * image->height * 3 * sizeof(unsigned char));
 }
 
-imagePPM* createImagePPM(FILE* image) {
-    imagePPM* ppm = (imagePPM*)malloc(sizeof(imagePPM));
-
-    // Read PPM header
-    fscanf(image, "P6 %d %d 255\n", &ppm->width, &ppm->height);
-
-    // Allocate memory for pixel data
-    ppm->data = (unsigned char*)malloc(3 * ppm->width * ppm->height * sizeof(unsigned char));
-
-    // Read pixel data
-    fread(ppm->data, sizeof(unsigned char), 3 * ppm->width * ppm->height, image);
+void freePixelsPPM(imagePPM *image) {
+    free(image->pixels);
+}
 
 
+int createImagePGM(FILE* image) {
+    int errorCode = 0;
 
-    int errorCode = 0 ;
-    printf("Création PPM");
-    scanf("%d", &errorCode);
-    return ppm;
 
-    
+    return 0;
+}
+
+int createImagePPM(FILE* image) {
+    int errorCode = 0;
+    if (image == NULL){
+        return 101;
+    }
+    imagePPM *ppm = (imagePPM *)malloc(sizeof(imagePPM));
+    if (ppm == NULL){
+        // Allocation mémoire échouée
+        free(ppm);
+        return 201;
+    }
+    if (fscanf(image, "P6 %d %d %d", &ppm->width, &ppm->height, &ppm->max_color_value) != 3){
+        // Erreur dans le header PPM
+        free(ppm);
+        return 105;
+    }
+
+    allocatePixelsPPM(ppm);
+    if(fread(ppm->pixels,sizeof(unsigned char), ppm->width * ppm->height * 3, image) != ppm->width * ppm->height * 3){
+        // Erreur lors de la lecture des données de pixels
+        freePixelsPPM(ppm);
+        free(ppm);
+        return 106;
+    }
+    return 0;
 }

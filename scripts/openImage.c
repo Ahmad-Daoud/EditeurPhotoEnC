@@ -40,9 +40,9 @@ int loadImage(){
         return 103;
     }
     else {
+        int errorCode = 0;
         // image chargée correctement
         if (strcmp(extension, "ppm") == 0 || strcmp(extension, "pgm") == 0){
-            int errorCode = 0;
             FILE *imageLoad = fopen(imagePath, "rb");
             if (imageLoad == NULL){
                 perror("Error opening file");
@@ -52,10 +52,23 @@ int loadImage(){
             else {
                 // Image trouvée correctement
                 if (strcmp(extension, "ppm") == 0){
-                    createImagePPM(imageLoad);
+                    int response = createImagePPM(imageLoad);
+                    if (response == 0) {
+                        // Image chargée correctement et convertie en struct
+
+                    }
+                    else {
+                        // Erreur
+                    }
                 }
                 else {
-                    createImagePGM(imageLoad);
+                    int response = createImagePGM(imageLoad);
+                    if (response == 0) {
+                        // Image chargée correctement et convertie en struct
+                    }
+                    else {
+                        // Erreur
+                    }
                 }
                 return 0;
             }
