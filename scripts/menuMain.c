@@ -20,16 +20,41 @@ int showMenuText(int errorCode){
     return 0;
 }
 
+
+
+
 char* errorCodeDisplay(int errorCode){
     char* response = NULL;
-    if (errorCode == 101){
-        response = "L'image n'a pas pu être chargée correctement";
+    if (errorCode == 1){
+        response ="Veuillez choisir une option valide!";
+    }
+    else if (errorCode == 101){
+        response = "L'image n'a pas pu être chargée correctement. Code d'erreur 101.";
     }
     else if (errorCode == 102){
-        response = "L'image n'est pas du format attendu (utiliser des .ppm ou .pgm)";
+        response = "L'image n'est pas du format attendu (utiliser des .ppm ou .pgm) Code d'erreur 102.";
+    }
+    else if (errorCode == 103){
+        response = "Problème extension. Code d'erreur 103.";
+    }
+    else if (errorCode == 104){
+        response = "Image introuvable. Code d'erreur 104";
+    }
+    else if (errorCode == 105){
+        response = "Erreur dans le Header de votre image. Code d'erreur 105";
+    }
+    else if (errorCode == 106){
+        response = "Erreur données de votre image. Code d'erreur 106";
+    }
+    else if (errorCode == 201){
+        response = "Allocation mémoire échouée. Code d'erreur 201";
     }
     return response;
 }
+
+
+
+
 void showChoiceMenu(){
     printf("1 : Choisir une image\n");
     printf("2 : Ajouter des filtres à votre image\n");
