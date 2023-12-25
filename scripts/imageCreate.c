@@ -2,19 +2,12 @@
 #include <stdlib.h>
 #include "../include/imageCreate.h"
 
-imagePPM *ppm = NULL;
-imagePGM *pgm = NULL;
+
 
 imageIsLoadedPGM = 0;
 imageIsLoadedPPM = 0;
 
-void allocatePixelsPPM(imagePPM *image){
-    image->pixels = (unsigned char *)malloc(image->width * image->height * 3 * sizeof(unsigned char));
-}
 
-void freePixelsPPM(imagePPM *image) {
-    free(image->pixels);
-}
 
 
 int createImagePGM(FILE* image) {
@@ -24,30 +17,42 @@ int createImagePGM(FILE* image) {
     return 0;
 }
 
-int createImagePPM(FILE* image) {
+imagePPM* createImagePPM(FILE* image) {
     int errorCode = 0;
     if (image == NULL){
-        return 101;
+        showMenuText(101);
+        return NULL;
     }
-    imagePPM *ppm = (imagePPM *)malloc(sizeof(imagePPM));
-    if (ppm == NULL){
+    imagePPM* Imageppm = (imagePPM*)malloc(sizeof(imagePPM));
+    if (Imageppm == NULL){
         // Allocation mémoire échouée
-        free(ppm);
-        return 201;
+        free(Imageppm);
+        showMenuText(201);
+        return NULL;
     }
-    if (fscanf(image, "P6 %d %d %d", &ppm->width, &ppm->height, &ppm->max_color_value) != 3){
+    if (fscanf(image, "P6 %d %d %d", &Imageppm->width, &Imageppm->height, &Imageppm->max_color_value) != 3){
         // Erreur dans le header PPM
-        free(ppm);
-        return 105;
+        free(Imageppm);
+        showMenuText(105);
+        return NULL;
+    }
+    // On malloc pour les données des pixels.
+    Imageppm->pixels = (unsigned char*)malloc(Imageppm->width * Imageppm->height * 3 * sizeof(unsigned char));
+    if (Imageppm->pixels == NULL) {        
+        // Erreur lors de la lecture des données de pixels
+        free(Imageppm);
+        showMenuText(106);
+        return NULL;
     }
 
-    allocatePixelsPPM(ppm);
-    if(fread(ppm->pixels,sizeof(unsigned char), ppm->width * ppm->height * 3, image) != ppm->width * ppm->height * 3){
-        // Erreur lors de la lecture des données de pixels
-        freePixelsPPM(ppm);
-        free(ppm);
-        return 106;
+    if (fread(Imageppm->pixels, sizeof(unsigned char), Imageppm->width * Imageppm->height * 3, image) != Imageppm->width * Imageppm->height * 3) {
+        // Les données de pixels sont corrompues
+        free(Imageppm->pixels);
+        free(Imageppm);
+        showMenuText(107);
+        return NULL;
     }
+
     imageIsLoadedPPM = 1;
-    return 0;
+    return Imageppm;
 }

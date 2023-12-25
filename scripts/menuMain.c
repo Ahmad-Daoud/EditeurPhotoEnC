@@ -110,7 +110,8 @@ void funChoixMenu(int choixMenu){
     }
     else if(choixMenu == 3){
         /// Sauvegarder image
-        saveImage();
+        int errorCode = 0;
+        saveImage(0);
     }
     else {
         // Mauvais choix
