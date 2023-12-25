@@ -42,10 +42,9 @@ void saveImage(int errorCode){
     }
 }
 
-void savePPM(){
-    
+void savePPM(){  
     char outputName[100];
-    char directory[] = "../output/";
+    char directory[] = "output/";
     char extension[] = ".ppm";
     printf("Veuillez choisir un nom pour l'image : ");
     scanf("%99s", outputName);
@@ -62,14 +61,28 @@ void savePPM(){
         }
         else {
             // On crée notre nouvelle image
+            fclose(outputFile);
             outputFile = fopen(fullOutput, "wb");
             if (!outputFile){
                 int errorCode = 0;
                 printf("%s", fullOutput);
                 scanf("%d",errorCode);
-                fclose(outputFile);
                 free(fullOutput);
                 showMenuText(202);
+            }
+            else{
+                int errorCode = 0;
+
+                fprintf(outputFile, "P6\n%d %d\n%d\n", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
+
+                // Write pixel data
+                fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3, outputFile);
+
+                fclose(outputFile);
+
+
+                printf("%s Sucessfully saved", fullOutput);
+                scanf("%d",errorCode);
             }
         }
         // On libère la mémoire du malloc
