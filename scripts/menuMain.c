@@ -61,6 +61,9 @@ char* errorCodeDisplay(int errorCode){
     else if (errorCode == 201){
         response = "Allocation mémoire échouée. Code d'erreur 201";
     }
+    else if (errorCode == -1){
+        response = "";
+    }
     else {
         char codeString[20];
         sprintf(codeString, "%d", errorCode);
