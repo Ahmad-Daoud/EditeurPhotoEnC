@@ -73,20 +73,18 @@ void savePPM(){
             else{
                 int errorCode = 0;
 
-                fprintf(outputFile, "P6\n%d %d\n%d\n", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
-
-                // Write pixel data
+                fprintf(outputFile, "P6\n%d %d\n%d", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
+                // on écrit les données des pixels
                 fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3, outputFile);
-
                 fclose(outputFile);
-
-
-                printf("%s Sucessfully saved", fullOutput);
+                printf("%s Sauvegardé : ", fullOutput);
                 scanf("%d",errorCode);
+                // On libère la mémoire du malloc
+                free(fullOutput);
+                showMenuText(-1);
             }
         }
-        // On libère la mémoire du malloc
-        free(fullOutput);
+        
     } 
     else {
         // allocation de mémoire échouée.

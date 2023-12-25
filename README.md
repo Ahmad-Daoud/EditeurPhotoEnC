@@ -39,3 +39,5 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 201 : Allocation mémoire échouée.
       - Code 202 : Erreur lors de sauvegarde (Impossible de créer fichier).
       - Code 203 : Erreur de création de struct (inconnu).
+### Autres Codes : 
+      - Code -1 : Sauvegarde de l'image (pas une erreur).
