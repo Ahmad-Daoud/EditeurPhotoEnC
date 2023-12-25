@@ -64,9 +64,6 @@ void savePPM(){
             fclose(outputFile);
             outputFile = fopen(fullOutput, "wb");
             if (!outputFile){
-                int errorCode = 0;
-                printf("%s", fullOutput);
-                scanf("%d",errorCode);
                 free(fullOutput);
                 showMenuText(202);
             }
@@ -78,7 +75,7 @@ void savePPM(){
                 fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3 + 1, outputFile);
                 fclose(outputFile);
                 printf("\033[2J\033[1;1H");
-                printf("%s Sauvegardé : ", fullOutput);
+                printf("Sauvegardé : %s \n ", fullOutput);
                 // On libère la mémoire du malloc
                 free(fullOutput);
                 free(loadedImagePPM);
@@ -96,5 +93,54 @@ void savePPM(){
     }
 }
 void savePGM(){
+    char outputName[100];
+    char directory[] = "output/";
+    char extension[] = ".pgm";
+    printf("Veuillez choisir un nom pour l'image : ");
+    scanf("%99s", outputName);
+    int totalLength = strlen(directory) + strlen(outputName) + strlen(extension) + 1;
+    char *fullOutput = (char *)malloc(totalLength * sizeof(char));
+    if (fullOutput != NULL) {
+        snprintf(fullOutput, totalLength, "%s%s%s", directory, outputName, extension);
+        FILE *outputFile = fopen(fullOutput,"rb"); 
+        if(outputFile != NULL){
+            // l'image existe déjà
+            free(fullOutput);
+            fclose(outputFile);
+            saveImage(1);
+        }
+        else {
+            // On crée notre nouvelle image
+            fclose(outputFile);
+            outputFile = fopen(fullOutput, "wb");
+            if (!outputFile){
+                free(fullOutput);
+                showMenuText(202);
+            }
+            else{
 
+                // Ecriture du header pgm
+                fprintf(outputFile, "%s\n%d %d\n%d", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
+
+                // Ecriture des données pixel
+                fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height + 1, outputFile);
+
+                fclose(outputFile);
+                printf("\033[2J\033[1;1H");
+                printf("Sauvegardé : %s \n ", fullOutput);
+                // On libère la mémoire du malloc
+                free(fullOutput);
+                free(loadedImagePGM);
+                loadedImagePGM = NULL;
+                imageIsLoadedPGM = 0;
+                showMenuText(-1);
+            }
+        }
+        
+    } 
+    else {
+        // allocation de mémoire échouée.
+        free(fullOutput);
+        showMenuText(201);
+    }
 }
