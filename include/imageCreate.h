@@ -14,11 +14,11 @@ typedef struct {
     unsigned char* data;
 } imagePGM;
 
-extern imagePPM *ppm;
-extern imagePGM *pgm;
 
+extern int imageIsLoadedPGM;
+extern int imageIsLoadedPPM;
 int createImagePGM(FILE* image);
-int createImagePPM(FILE* image);
+imagePPM* createImagePPM(FILE* image);
 
 
 #endif
