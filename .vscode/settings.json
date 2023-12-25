@@ -5,6 +5,7 @@
         "string.h": "c",
         "menumain.h": "c",
         "openimage.h": "c",
-        "imagecreate.h": "c"
+        "imagecreate.h": "c",
+        "imagerender.h": "c"
     }
 }

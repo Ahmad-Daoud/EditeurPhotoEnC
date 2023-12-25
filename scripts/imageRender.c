@@ -75,7 +75,7 @@ void savePPM(){
 
                 fprintf(outputFile, "P6\n%d %d\n%d", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
                 // on écrit les données des pixels
-                fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3, outputFile);
+                fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3 + 1, outputFile);
                 fclose(outputFile);
                 printf("%s Sauvegardé : ", fullOutput);
                 scanf("%d",errorCode);
