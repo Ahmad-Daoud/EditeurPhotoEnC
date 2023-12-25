@@ -4,11 +4,14 @@
 #include "../include/menumain.h"
 #include "../include/openImage.h"
 #include "../include/imageRender.h"
+#include "../include/imageFilters.h"
 
 
 int showMenuText(int errorCode){
     // Clear la console
-    printf("\033[2J\033[1;1H");
+    if (errorCode != -1){
+        printf("\033[2J\033[1;1H");
+    }
     int choixMenu;
     if (imageIsLoadedPGM == 1 || imageIsLoadedPPM == 1){
         if (errorCode == 0){
@@ -57,6 +60,9 @@ char* errorCodeDisplay(int errorCode){
     }
     else if (errorCode == 201){
         response = "Allocation mémoire échouée. Code d'erreur 201";
+    }
+    else if (errorCode == -1){
+        response = "";
     }
     else {
         char codeString[20];

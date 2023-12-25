@@ -5,8 +5,7 @@
 #include "../include/imageCreate.h"
 #include "../include/menumain.h"
 
-int isLoadedPGM = 0;
-int isLoadedPPM = 0;
+
 imagePPM* loadedImagePPM = NULL;
 imagePGM* loadedImagePGM = NULL;
 
@@ -47,6 +46,7 @@ int loadImage(){
             else {
                 // Image trouvée correctement
                 if (strcmp(extension, "ppm") == 0){
+                    // Image = PPM
                     loadedImagePPM = createImagePPM(imageLoad);
                     if (loadedImagePPM != NULL) {
                         // Image chargée correctement et convertie en struct
@@ -55,7 +55,7 @@ int loadImage(){
                     }
                     else {
                         // Erreur
-                        isLoadedPPM = 0;
+                        imageIsLoadedPPM = 0;
                         free(loadedImagePPM);
                         fclose(imageLoad);
                         loadedImagePPM = NULL;
@@ -63,12 +63,19 @@ int loadImage(){
                     }
                 }
                 else {
-                    int response = createImagePGM(imageLoad);
-                    if (response == 0) {
+                    // Image = PGM
+                    loadedImagePGM = createImagePGM(imageLoad);
+                    if (loadedImagePGM != NULL) {
                         // Image chargée correctement et convertie en struct
+                            fclose(imageLoad);
+                            showMenuText(0);
                     }
                     else {
                         // Erreur
+                        free(loadedImagePGM);
+                        loadedImagePGM = NULL;
+                        imageIsLoadedPGM = 0;
+                        showMenuText(203);
                     }
                 }
                 return 0;

@@ -4,23 +4,47 @@
 
 
 
-imageIsLoadedPGM = 0;
-imageIsLoadedPPM = 0;
+int imageIsLoadedPGM = 0;
+int imageIsLoadedPPM = 0;
 
 
 
 
-int createImagePGM(FILE* image) {
+imagePGM* createImagePGM(FILE* image) {
     int errorCode = 0;
+    if (image == NULL){
+        return NULL;
+    }
+    imagePGM* ImagePGM = (imagePGM*)malloc(sizeof(imagePGM));
+    if (ImagePGM == NULL){
+        // Allocation mémoire échouée
+        free(ImagePGM);
+        return NULL;
+    }
 
+    // Lecture données HEADER Pgm
+    fscanf(image, "%2s", ImagePGM->format);
+    fscanf(image, "%d %d", &ImagePGM->width, &ImagePGM->height);
+    fscanf(image, "%d", &ImagePGM->max_gray);
 
-    return 0;
+    // Allocation mémoire pour données pixels
+    ImagePGM->pixels = (unsigned char*)malloc(ImagePGM->width * ImagePGM->height * sizeof(unsigned char));
+    if (ImagePGM->pixels == NULL) {
+        // Allocation mémoire échouée
+        free(ImagePGM);
+        showMenuText(201);
+        return NULL;
+    }
+    // Lecture données pixels
+    fread(ImagePGM->pixels, sizeof(unsigned char), ImagePGM->width * ImagePGM->height, image);
+
+    imageIsLoadedPGM = 1;
+    return ImagePGM;
 }
 
 imagePPM* createImagePPM(FILE* image) {
     int errorCode = 0;
     if (image == NULL){
-        showMenuText(101);
         return NULL;
     }
     imagePPM* Imageppm = (imagePPM*)malloc(sizeof(imagePPM));
