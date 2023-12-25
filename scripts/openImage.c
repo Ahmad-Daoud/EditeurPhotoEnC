@@ -5,8 +5,7 @@
 #include "../include/imageCreate.h"
 #include "../include/menumain.h"
 
-int isLoadedPGM = 0;
-int isLoadedPPM = 0;
+
 imagePPM* loadedImagePPM = NULL;
 imagePGM* loadedImagePGM = NULL;
 
@@ -55,7 +54,7 @@ int loadImage(){
                     }
                     else {
                         // Erreur
-                        isLoadedPPM = 0;
+                        imageIsLoadedPPM = 0;
                         free(loadedImagePPM);
                         fclose(imageLoad);
                         loadedImagePPM = NULL;

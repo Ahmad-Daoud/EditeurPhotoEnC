@@ -2,8 +2,7 @@
 #define OPENIMAGE_H
 #include "imageCreate.h"
 
-extern int isLoadedPGM;
-extern int isLoadedPPM;
+
 extern imagePPM* loadedImagePPM;
 extern imagePGM* loadedImagePGM;
 

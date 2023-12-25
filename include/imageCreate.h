@@ -9,9 +9,11 @@ typedef struct {
     unsigned char *pixels;
 } imagePPM;
 typedef struct {
-    int width;
-    int height;
-    unsigned char* data;
+    char format[3];  // Format (P2=ASCII P5= Binaire)
+    int width;       
+    int height;      
+    int max_gray;    
+    unsigned char *pixels;
 } imagePGM;
 
 

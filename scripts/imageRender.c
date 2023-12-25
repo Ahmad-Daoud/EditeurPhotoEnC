@@ -77,10 +77,13 @@ void savePPM(){
                 // on écrit les données des pixels
                 fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3 + 1, outputFile);
                 fclose(outputFile);
+                printf("\033[2J\033[1;1H");
                 printf("%s Sauvegardé : ", fullOutput);
-                scanf("%d",errorCode);
                 // On libère la mémoire du malloc
                 free(fullOutput);
+                free(loadedImagePPM);
+                loadedImagePPM = NULL;
+                imageIsLoadedPPM = 0;
                 showMenuText(-1);
             }
         }
