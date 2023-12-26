@@ -4,5 +4,5 @@
 void effectChoose(int errorCode);
 void showEffectMenu();
 void effectMenuChoice(int Choice);
-void pixelEffect();
+void pixelEffect(int errorCode);
 #endif
