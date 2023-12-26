@@ -19,6 +19,9 @@ void saveImage(int errorCode){
             }
             else {
                 // Image NULL
+                imageIsLoadedPGM = 0;
+                imageIsLoadedPPM = 0;
+                showMenuText(101);
             }
         }
         else {
@@ -124,7 +127,8 @@ void savePGM(){
 
                 // Ecriture des données pixel
                 fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height + 1, outputFile);
-
+                
+                // Succès!
                 fclose(outputFile);
                 printf("\033[2J\033[1;1H");
                 printf("Sauvegardé : %s \n ", fullOutput);

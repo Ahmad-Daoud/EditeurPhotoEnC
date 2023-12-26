@@ -74,6 +74,7 @@ int loadImage(){
                         // Erreur
                         free(loadedImagePGM);
                         loadedImagePGM = NULL;
+                        fclose(imageLoad);
                         imageIsLoadedPGM = 0;
                         showMenuText(203);
                     }
