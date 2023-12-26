@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/imageCreate.h"
-
+#include "../include/menumain.h"
 
 
 int imageIsLoadedPGM = 0;

@@ -5,7 +5,7 @@
 #include "../include/openImage.h"
 #include "../include/imageRender.h"
 #include "../include/imageFilters.h"
-
+#include "../include/imageEffects.h"
 
 int showMenuText(int errorCode){
     // Clear la console
@@ -41,7 +41,7 @@ char* errorCodeDisplay(int errorCode){
         response ="Veuillez choisir une option valide!";
     }
     else if (errorCode == 101){
-        response = "L'image n'a pas pu être chargée correctement. Code d'erreur 101.";
+        response = "L'image n'a pas pu etre chargee correctement. Code d'erreur 101.";
     }
     else if (errorCode == 102){
         response = "L'image n'est pas du format attendu (utiliser des .ppm ou .pgm) Code d'erreur 102.";
@@ -56,10 +56,10 @@ char* errorCodeDisplay(int errorCode){
         response = "Erreur dans le Header de votre image. Code d'erreur 105";
     }
     else if (errorCode == 106){
-        response = "Erreur données de votre image. Code d'erreur 106";
+        response = "Erreur donnees de votre image. Code d'erreur 106";
     }
     else if (errorCode == 201){
-        response = "Allocation mémoire échouée. Code d'erreur 201";
+        response = "Allocation memoire échouée. Code d'erreur 201";
     }
     else if (errorCode == -1){
         response = "";
@@ -86,17 +86,14 @@ void showChoiceMenu(){
         printf("1 : Choisir une image\n");
     }
     printf("2 : Ajouter des filtres à votre image\n");
-    printf("3 : Sauvegarder votre image\n");
+    printf("3 : Ajouter des effets à votre image \n");
+    printf("4 : Sauvegarder votre image\n");
     printf("0 : Quitter l'application\n");
 }
 void funChoixMenu(int choixMenu){
     
     if (choixMenu == 0){
-        int errorCode;
-        printf("wtf3");
-        scanf("%d", errorCode);
         exit(EXIT_SUCCESS);
-        
     }
     else if (imageIsLoadedPGM == 0 && imageIsLoadedPPM == 0){
         if(choixMenu == 1){
@@ -114,7 +111,11 @@ void funChoixMenu(int choixMenu){
     if(choixMenu == 2){
         // ajouter des filtres
     }
-    else if(choixMenu == 3){
+    else if (choixMenu == 3){
+        // Ajouter des effets
+        effectChoose(0);
+    }
+    else if(choixMenu == 4){
         /// Sauvegarder image
         int errorCode = 0;
         saveImage(0);

@@ -23,7 +23,7 @@ int loadImage(){
     char imageName[100];
     char imagePath[100];
     const char* directory = "input/";
-    printf("Veuillez déposer votre image dans le dossier input (format .ppm ou .pgm) \n");
+    printf("Veuillez deposer votre image dans le dossier input (format .ppm ou .pgm) \n");
     printf(" nom de votre image : ");
 
     scanf("%s", &imageName);
@@ -31,7 +31,7 @@ int loadImage(){
     char* extension = getFileExtension(imageName);
     if (strcmp(extension, "") == 0){
         // Pas d'extension ou le fichier commence avec un .
-        return 103;
+        showMenuText(103);
     }
     else {
         int errorCode = 0;
@@ -39,9 +39,8 @@ int loadImage(){
         if (strcmp(extension, "ppm") == 0 || strcmp(extension, "pgm") == 0){
             FILE *imageLoad = fopen(imagePath, "rb");
             if (imageLoad == NULL){
-                perror("Error opening file");
                 // image introuvable
-                return 104;
+                showMenuText(104);
             }
             else {
                 // Image trouvée correctement
@@ -83,7 +82,7 @@ int loadImage(){
             }
         }
         else {
-            return 102;
+            showMenuText(102);
         }
     }
     
