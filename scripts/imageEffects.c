@@ -16,7 +16,12 @@ void effectChoose(int errorCode){
         else if(errorCode == 5){
             printf("Effet en developpement ! \n");
         }
-        printf("Veuillez choisir un effet parmis les effets suivants : \n");
+        else if(errorCode == -2){
+            printf("pixélisation appliquée!\n");
+        }
+        else {
+            printf("Veuillez choisir un effet parmis les effets suivants : \n");
+        }
         showEffectMenu();
         scanf("%d", &effectChoice);
         effectMenuChoice(effectChoice);
@@ -76,48 +81,28 @@ void pixelEffect(int errorCode){
     else {
         // La valeur choisie est bonne.
         if (imageIsLoadedPGM){
-            
             // L'image est une PGM
-            int newWidth = (loadedImagePGM->width + pixelStrength - 1) / pixelStrength; // nouvelle largeur
-            int newHeight = (loadedImagePGM->height + pixelStrength - 1) / pixelStrength; // nouvelle hauteur
-            unsigned char *newPixels = (unsigned char *)malloc(newWidth * newHeight * sizeof(unsigned char));
-            for(int y = 0 ; y < newHeight; y++){
-                for (int x = 0; x < newWidth; x++){
-                    int total = 0;
-                    for (int j = 0; j < pixelStrength && (y * pixelStrength + j) < loadedImagePGM->height; j++) {
-                        for (int i = 0; i < pixelStrength && (x * pixelStrength + i) < loadedImagePGM->width; i++) {
-                            int srcX = x * pixelStrength + i;
-                            int srcY = y * pixelStrength + j;
-                            if (srcX < loadedImagePGM->width && srcY < loadedImagePGM->height) {
-                                total += loadedImagePGM->pixels[srcY * loadedImagePGM->width + srcX];
-                                
-                            }
+            int blockSize = 2 * pixelStrength + 1;
+            unsigned char* newPixels = (unsigned char *)malloc(loadedImagePGM->width * loadedImagePGM->height * sizeof(unsigned char) * 6);
+            for (int row = (blockSize / 2); row < loadedImagePGM->height - (blockSize/2); ++row) {
+                for (int col = blockSize / 2; col < loadedImagePGM->width - (blockSize/2); ++col) {
+                    unsigned int avg = 0;
+                    for (int i = -(blockSize / 2); i <= (blockSize / 2); ++i) {
+                        for (int j = -(blockSize / 2); j <= (blockSize / 2); ++j) {
+                            avg += loadedImagePGM->pixels[(row + i) * loadedImagePGM->width + (col + j)];
                         }
                     }
-                    int avg = total / (pixelStrength * pixelStrength);
-                    for (int j = 0; j< pixelStrength; j++){
-                        for (int i = 0; i<pixelStrength; i++){
-                            int destX = x * pixelStrength +i ;
-                            int destY = y * pixelStrength +j ;
-                            if (destX < loadedImagePGM->width && destY < loadedImagePGM->height){
-                                newPixels[destY * newWidth + destX] = avg;
-                            }
-                            
-                        }
-                    }
-                }
-                if (y == 13){
-                    printf("We have sucessfully finished the pixelisation %d", newHeight);
-                    scanf("%d",errorCode);
+                    newPixels[row * loadedImagePGM->width + col] = avg / (blockSize * blockSize);
                 }
             }
-            printf("We have sucessfully finished the pixelisation");
-            scanf("%d",errorCode);
+            for (int i = 0; i < loadedImagePGM->width * loadedImagePGM->height; ++i) {
+                loadedImagePGM->pixels[i] = newPixels[i];
+            }
+
+
             free(loadedImagePGM->pixels);
             loadedImagePGM->pixels = newPixels;
-            loadedImagePGM->height = newHeight;
-            loadedImagePGM->width = newWidth;
-            
+            effectChoose(-2);
         }
         else {
             // L'image est une PPM

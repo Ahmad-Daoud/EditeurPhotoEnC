@@ -68,7 +68,6 @@ imagePPM* createImagePPM(FILE* image) {
         showMenuText(106);
         return NULL;
     }
-
     if (fread(Imageppm->pixels, sizeof(unsigned char), Imageppm->width * Imageppm->height * 3, image) != Imageppm->width * Imageppm->height * 3) {
         // Les données de pixels sont corrompues
         free(Imageppm->pixels);

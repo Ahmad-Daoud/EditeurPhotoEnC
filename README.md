@@ -44,3 +44,4 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 203 : Erreur de création de struct (inconnu).
 ### Autres Codes : 
       - Code -1 : Sauvegarde de l'image (pas une erreur).
+      - Code -2 : Pixelisation réussite.
