@@ -73,7 +73,7 @@ void savePPM(){
             else{
                 int errorCode = 0;
 
-                fprintf(outputFile, "P6\n%d %d\n%d ", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
+                fprintf(outputFile, "P6\n%d %d\n%d\n ", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
                 // on écrit les données des pixels
                 fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3 + 1, outputFile);
                 fclose(outputFile);
@@ -121,13 +121,12 @@ void savePGM(){
                 showMenuText(202);
             }
             else{
-
                 // Ecriture du header pgm
                 fprintf(outputFile, "%s\n%d %d\n%d", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
 
                 // Ecriture des données pixel
                 fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height + 1, outputFile);
-                
+
                 // Succès!
                 fclose(outputFile);
                 printf("\033[2J\033[1;1H");
@@ -140,8 +139,7 @@ void savePGM(){
                 showMenuText(-1);
             }
         }
-        
-    } 
+    }
     else {
         // allocation de mémoire échouée.
         free(fullOutput);

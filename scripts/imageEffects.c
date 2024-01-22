@@ -92,14 +92,14 @@ void pixelEffect(int errorCode){
                             avg += loadedImagePGM->pixels[(row + i) * loadedImagePGM->width + (col + j)];
                         }
                     }
-                    newPixels[row * loadedImagePGM->width + col] = avg / (blockSize * blockSize);
+                    for (int i = -(blockSize / 2); i <= (blockSize / 2); ++i) {
+                        for (int j = -(blockSize / 2); j <= (blockSize / 2); ++j) {
+                            newPixels[row * loadedImagePGM->width + col] = avg / (blockSize * blockSize);
+                        }
+                    }
                 }
+                printf("%d", row);
             }
-            for (int i = 0; i < loadedImagePGM->width * loadedImagePGM->height; ++i) {
-                loadedImagePGM->pixels[i] = newPixels[i];
-            }
-
-
             free(loadedImagePGM->pixels);
             loadedImagePGM->pixels = newPixels;
             effectChoose(-2);
