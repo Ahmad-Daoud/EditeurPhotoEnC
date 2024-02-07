@@ -121,12 +121,12 @@ void savePGM(){
                 showMenuText(202);
             }
             else{
-                // Ecriture du header pgm
-                fprintf(outputFile, "%s\n%d %d\n%d", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
+                 // Ecriture du header pgm
+                fprintf(outputFile, "%s\n%d %d\n%d\n", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
 
                 // Ecriture des données pixel
-                fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height + 1, outputFile);
-
+                fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height, outputFile);
+ 
                 // Succès!
                 fclose(outputFile);
                 printf("\033[2J\033[1;1H");
