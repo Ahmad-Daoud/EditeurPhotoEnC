@@ -121,27 +121,21 @@ void savePGM(){
                 showMenuText(202);
             }
             else{
-
-                // Ecriture du header pgm
-                fprintf(outputFile, "%s\n%d %d\n%d", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
-
-                // Ecriture des données pixel
-                fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height + 1, outputFile);
-                
-                // Succès!
-                fclose(outputFile);
-                printf("\033[2J\033[1;1H");
-                printf("Sauvegardé : %s \n ", fullOutput);
-                // On libère la mémoire du malloc
-                free(fullOutput);
-                free(loadedImagePGM);
-                loadedImagePGM = NULL;
-                imageIsLoadedPGM = 0;
-                showMenuText(-1);
-            }
+                fprintf(outputFile, "P5\n");
+                fprintf(outputFile, "%d %d\n255\n", loadedImagePGM->width, loadedImagePGM->height);
+                unsigned char tmp = 0;
+                int i = 0;
+                int j = 0;
+                for (i=0; i < loadedImagePGM->width; i++ ){
+                    for (j=0; j<loadedImagePGM->height; j++){
+                        tmp = (unsigned char) (loadedImagePGM->color[i][j]);
+                        fwrite(&tmp, sizeof(unsigned char), 1, outputFile);
+                    }
+                        showMenuText(-1);
+                    }
+                }
+            } 
         }
-        
-    } 
     else {
         // allocation de mémoire échouée.
         free(fullOutput);

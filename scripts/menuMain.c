@@ -86,7 +86,8 @@ void showChoiceMenu(){
         printf("1 : Choisir une image\n");
     }
     printf("2 : Ajouter des filtres à votre image\n");
-    printf("3 : Sauvegarder votre image\n");
+    printf("3 : Ajouter des effets\n");
+    printf("4 : Sauvegarder votre image\n");
     printf("0 : Quitter l'application\n");
 }
 void funChoixMenu(int choixMenu){
@@ -114,7 +115,10 @@ void funChoixMenu(int choixMenu){
     if(choixMenu == 2){
         // ajouter des filtres
     }
-    else if(choixMenu == 3){
+    if(choixMenu == 3){
+        // ajouter des effets
+    }
+    else if(choixMenu == 4){
         /// Sauvegarder image
         int errorCode = 0;
         saveImage(0);

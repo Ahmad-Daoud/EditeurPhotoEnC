@@ -1,4 +1,4 @@
-#include <stdio.h>
+ #include <stdio.h>
 #include <stdlib.h>
 #include "../include/imageCreate.h"
 
@@ -22,28 +22,44 @@ imagePGM* createImagePGM(FILE* image) {
         return NULL;
     }
 
-    // Lecture données HEADER Pgm
-    fscanf(image, "%2s", ImagePGM->format);
-    fscanf(image, "%d %d", &ImagePGM->width, &ImagePGM->height);
-    fscanf(image, "%d", &ImagePGM->max_gray);
+    char chaine [3];
+    int verif = fscanf(image,"%s", chaine);
 
-    // Allocation mémoire pour données pixels
-    ImagePGM->pixels = (unsigned char*)malloc(ImagePGM->width * ImagePGM->height * sizeof(unsigned char));
-    if (ImagePGM->pixels == NULL) {
-        // Allocation mémoire échouée
-        free(ImagePGM);
-        showMenuText(201);
+    if (chaine[1] == '5') // Egal au format p5
+        {
+            fscanf(image, "%d %d", ImagePGM->width, ImagePGM->height);
+            fscanf(image, "%d", ImagePGM->vmax);
+            ImagePGM->color=malloc(ImagePGM->height * sizeof(unsigned char*));
+            if(ImagePGM->color == NULL){
+                return NULL;
+                // Allocation mémoire échouée.
+            }
+            int i;
+            int j;
+
+            for (i = 0; i < ImagePGM->height; i++) {
+                ImagePGM->color[i]= malloc(ImagePGM->width * sizeof(unsigned char));
+                if(ImagePGM->color[i] == NULL) printf("ERROR %d",i);
+            }
+
+            for (i=0; i < ImagePGM->width; i++ ){
+                for (j=0; j<ImagePGM->height; j++){
+                    unsigned char tmp;
+                    fread(&tmp, sizeof(unsigned char), 1, image);
+                    ImagePGM->color[i][j] = tmp;
+                }
+            }
+    }
+    else
+        {
+        printf(" format inconnu\n");
         return NULL;
     }
-    // Lecture données pixels
-    fread(ImagePGM->pixels, sizeof(unsigned char), ImagePGM->width * ImagePGM->height, image);
-
     imageIsLoadedPGM = 1;
     return ImagePGM;
 }
 
 imagePPM* createImagePPM(FILE* image) {
-    int errorCode = 0;
     if (image == NULL){
         return NULL;
     }
@@ -54,6 +70,10 @@ imagePPM* createImagePPM(FILE* image) {
         showMenuText(201);
         return NULL;
     }
+
+
+
+    
     if (fscanf(image, "P6 %d %d %d", &Imageppm->width, &Imageppm->height, &Imageppm->max_color_value) != 3){
         // Erreur dans le header PPM
         free(Imageppm);

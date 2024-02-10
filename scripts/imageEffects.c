@@ -17,8 +17,8 @@ void effectChoose(int errorCode){
 }
 
 void showEffectMenu(){
-    printf("1 : Pixeliser. \n");
-    printf("2 : Effet Négatif. \n");
-    printf("3 : Niveau de gris\n");
-    printf("4 : Distorsion \n");
+    printf("1 : Rotate. \n");
+    printf("2 : Mirroir. \n");
+    printf("3 : Translation.\n");
+    printf("4 : Scale \n");
 }
