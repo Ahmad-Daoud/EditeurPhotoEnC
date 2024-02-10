@@ -27,12 +27,13 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 1 : Mauvais choix menu.
       - Code 2 : Pas d'image à sauvegarder.
       - Code 3 : Le nom d'image est déjà utilisé.
+      - Code 4 : Pas d'image choisie.
 ### Codes 100 : Problèmes d'image
       - Code 101 : L'image n'a pas été chargée correctement.
       - Code 102 : L'image n'est pas du format attendu.
       - Code 103 : L'image n'a pas d'extension, ou commence avec un .
       - Code 104 : Image introuvable.
-      - Code 105 : Erreur header PPM.
+      - Code 105 : Erreur header PPM/PGM.
       - Code 106 : Erreur lecture données pixels.
       - Code 107 : Données pixels corrompues.
 ### Codes 200 : Problèmes de chargement
