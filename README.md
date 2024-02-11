@@ -36,6 +36,7 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 105 : Erreur header PPM/PGM.
       - Code 106 : Erreur lecture données pixels.
       - Code 107 : Données pixels corrompues.
+      - Code 108 : Erreur taille d'image
 ### Codes 200 : Problèmes de chargement
       - Code 201 : Allocation mémoire échouée.
       - Code 202 : Erreur lors de sauvegarde (Impossible de créer fichier).

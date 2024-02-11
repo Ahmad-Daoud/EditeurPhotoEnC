@@ -71,11 +71,33 @@ void savePPM(){
                 showMenuText(202);
             }
             else{
-                int errorCode = 0;
+                int totalPixels = loadedImagePPM->width * loadedImagePPM->height;
+                unsigned char* pixelData = (unsigned char*)malloc((totalPixels * 3 + 1) * sizeof(unsigned char));
+                if (pixelData == NULL) {
+                    // Allocation mémoire échouée
+                    free(fullOutput);
+                    free(loadedImagePPM);
+                    free(pixelData);
+                    loadedImagePPM = NULL;
+                    imageIsLoadedPPM = 0;
+                    showMenuText(201);
+                    return NULL;
+                }
 
-                fprintf(outputFile, "P6\n%d %d\n%d", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
-                // on écrit les données des pixels
-                fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3 + 1, outputFile);
+                // Ecriture editeur header ppm
+                fprintf(outputFile, "P6\n%d %d\n%d\n", loadedImagePPM->width, loadedImagePPM->height, 255);
+                // Ecriture données pixel
+                int pixelIndex = 0;
+                for (int i = 0; i < loadedImagePPM->height; i++) {
+                    for (int j = 0; j < loadedImagePPM->width; j++) {
+                        pixelData[pixelIndex++] = loadedImagePPM->red[i][j];
+                        pixelData[pixelIndex++] = loadedImagePPM->green[i][j];
+                        pixelData[pixelIndex++] = loadedImagePPM->blue[i][j];
+                    }
+                }
+                // Ecriture des données pixel
+                fwrite(pixelData, sizeof(unsigned char), totalPixels * 3, outputFile);
+
                 fclose(outputFile);
                 printf("\033[2J\033[1;1H");
                 printf("Sauvegardé : %s \n ", fullOutput);
@@ -87,7 +109,6 @@ void savePPM(){
                 showMenuText(-1);
             }
         }
-        
     } 
     else {
         // allocation de mémoire échouée.

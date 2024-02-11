@@ -71,32 +71,70 @@ imagePPM* createImagePPM(FILE* image) {
         return NULL;
     }
 
-
-
-    
-    if (fscanf(image, "P6 %d %d %d", &Imageppm->width, &Imageppm->height, &Imageppm->max_color_value) != 3){
-        // Erreur dans le header PPM
+    char magicNumber[3];
+    if (fscanf(image, "%2s", magicNumber) != 1 || magicNumber[0] != 'P' || magicNumber[1] != '6') {
+        // Format inconnu
         free(Imageppm);
-        showMenuText(105);
-        return NULL;
-    }
-    // On malloc pour les données des pixels.
-    Imageppm->pixels = (unsigned char*)malloc(Imageppm->width * Imageppm->height * 3 * sizeof(unsigned char));
-    if (Imageppm->pixels == NULL) {        
-        // Erreur lors de la lecture des données de pixels
-        free(Imageppm);
-        showMenuText(106);
+        showMenuText(102);
         return NULL;
     }
 
-    if (fread(Imageppm->pixels, sizeof(unsigned char), Imageppm->width * Imageppm->height * 3, image) != Imageppm->width * Imageppm->height * 3) {
-        // Les données de pixels sont corrompues
-        free(Imageppm->pixels);
+    // On scan la taille de l'image
+     if (fscanf(image, "%d %d", &Imageppm->width, &Imageppm->height) != 2) {
         free(Imageppm);
-        showMenuText(107);
+        showMenuText(108);
         return NULL;
     }
 
+    // Allocation de mémoire pour les channels de couleur
+    Imageppm->red = (unsigned char**)malloc(Imageppm->height * sizeof(unsigned char*));
+    Imageppm->green = (unsigned char**)malloc(Imageppm->height * sizeof(unsigned char*));
+    Imageppm->blue = (unsigned char**)malloc(Imageppm->height * sizeof(unsigned char*));
+
+
+    if (Imageppm->red == NULL || Imageppm->green == NULL || Imageppm->blue == NULL) {
+        // Allocation de mémoire échouée
+        free(Imageppm->red);
+        free(Imageppm->green);
+        free(Imageppm->blue);
+        free(Imageppm);
+        showMenuText(201);
+        return NULL;
+    }
+
+
+
+
+    // Allocation de mémoire pour chaque ligne de pixels
+    for (int i = 0; i < Imageppm->height; i++) {
+        Imageppm->red[i] = (unsigned char*)malloc(Imageppm->width * sizeof(unsigned char));
+        Imageppm->green[i] = (unsigned char*)malloc(Imageppm->width * sizeof(unsigned char));
+        Imageppm->blue[i] = (unsigned char*)malloc(Imageppm->width * sizeof(unsigned char));
+
+        if (Imageppm->red[i] == NULL || Imageppm->green[i] == NULL || Imageppm->blue[i] == NULL) {
+            // Allocation de mémoire échouée
+            for (int j = 0; j < i; j++) {
+                free(Imageppm->red[j]);
+                free(Imageppm->green[j]);
+                free(Imageppm->blue[j]);
+            }
+            free(Imageppm->red);
+            free(Imageppm->green);
+            free(Imageppm->blue);
+            free(Imageppm);
+            showMenuText(201);
+            return NULL;
+        }
+    }
+    // Lécture des données pixels
+    for (int i = 0; i < Imageppm->height; i++) {
+        for (int j = 0; j < Imageppm->width; j++) {
+            // Lecture des valeurs rgb
+            fread(&Imageppm->red[i][j], sizeof(unsigned char), 1, image);
+            fread(&Imageppm->green[i][j], sizeof(unsigned char), 1, image);
+            fread(&Imageppm->blue[i][j], sizeof(unsigned char), 1, image);
+        }
+    }
     imageIsLoadedPPM = 1;
     return Imageppm;
 }

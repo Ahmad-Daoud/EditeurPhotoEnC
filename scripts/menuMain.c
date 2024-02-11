@@ -5,6 +5,7 @@
 #include "../include/openImage.h"
 #include "../include/imageRender.h"
 #include "../include/imageFilters.h"
+#include "../include/imageEffects.h"
 
 
 int showMenuText(int errorCode){
@@ -94,8 +95,6 @@ void funChoixMenu(int choixMenu){
     
     if (choixMenu == 0){
         int errorCode;
-        printf("wtf3");
-        scanf("%d", errorCode);
         exit(EXIT_SUCCESS);
         
     }

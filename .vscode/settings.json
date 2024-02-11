@@ -6,6 +6,7 @@
         "menumain.h": "c",
         "openimage.h": "c",
         "imagecreate.h": "c",
-        "imagerender.h": "c"
+        "imagerender.h": "c",
+        "imagefilters.h": "c"
     }
 }
