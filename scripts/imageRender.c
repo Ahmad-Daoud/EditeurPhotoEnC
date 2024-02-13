@@ -7,10 +7,14 @@
 #include "../include/menumain.h"
 
 void saveImage(int errorCode){
+    int sf;
+    printf("lolol");
+    scanf("%d", &sf);
     if (errorCode == 3){
         printf("Nom d'image existe déjà");
     }
     if(imageIsLoadedPGM == 1 || imageIsLoadedPPM == 1){
+        
         if (imageIsLoadedPGM == 1 ){
             // Image de format PGM
             if (loadedImagePGM != NULL){
@@ -121,7 +125,7 @@ void savePGM(){
     char directory[] = "output/";
     char extension[] = ".pgm";
     printf("Veuillez choisir un nom pour l'image : ");
-    scanf("%99s", outputName);
+    scanf("%99s", &outputName);
     int totalLength = strlen(directory) + strlen(outputName) + strlen(extension) + 1;
     char *fullOutput = (char *)malloc(totalLength * sizeof(char));
     if (fullOutput != NULL) {
@@ -136,6 +140,12 @@ void savePGM(){
         else {
             // On crée notre nouvelle image
             fclose(outputFile);
+            for (int i = 0; i < loadedImagePGM->height; i++) {
+                for (int j = 0; j < loadedImagePGM->width; j++) {
+                    printf("%3d ", loadedImagePGM->color[i][j]); // Assuming you want to print each value as an integer
+                }
+                printf("\n");
+            }
             outputFile = fopen(fullOutput, "wb");
             if (!outputFile){
                 free(fullOutput);
@@ -147,16 +157,16 @@ void savePGM(){
                 unsigned char tmp = 0;
                 int i = 0;
                 int j = 0;
-                for (i=0; i < loadedImagePGM->width; i++ ){
-                    for (j=0; j<loadedImagePGM->height; j++){
+                for (j=0; j < loadedImagePGM->width; j++ ){
+                    for (i=0; i<loadedImagePGM->height; i++){
                         tmp = (unsigned char) (loadedImagePGM->color[i][j]);
                         fwrite(&tmp, sizeof(unsigned char), 1, outputFile);
                     }
-                        showMenuText(-1);
-                    }
+                    showMenuText(-1);
                 }
-            } 
+            }
         }
+    }
     else {
         // allocation de mémoire échouée.
         free(fullOutput);

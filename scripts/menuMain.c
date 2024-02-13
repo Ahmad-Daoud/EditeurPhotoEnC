@@ -14,7 +14,9 @@ int showMenuText(int errorCode){
         printf("\033[2J\033[1;1H");
     }
     int choixMenu;
+    
     if (imageIsLoadedPGM == 1 || imageIsLoadedPPM == 1){
+        
         if (errorCode == 0){
             printf("Que voulez vous faire avec l'image? \n");
         }
@@ -113,13 +115,17 @@ void funChoixMenu(int choixMenu){
     }
     if(choixMenu == 2){
         // ajouter des filtres
+        
     }
     if(choixMenu == 3){
         // ajouter des effets
+        effectChoose(0);
     }
     else if(choixMenu == 4){
         /// Sauvegarder image
         int errorCode = 0;
+        printf("hello");
+        scanf("%d", errorCode);
         saveImage(0);
     }
     else {

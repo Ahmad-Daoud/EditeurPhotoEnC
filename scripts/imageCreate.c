@@ -1,6 +1,7 @@
- #include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "../include/imageCreate.h"
+#include "../include/menumain.h"
 
 
 
@@ -11,6 +12,7 @@ int imageIsLoadedPPM = 0;
 
 
 imagePGM* createImagePGM(FILE* image) {
+    
     int errorCode = 0;
     if (image == NULL){
         return NULL;
@@ -19,40 +21,39 @@ imagePGM* createImagePGM(FILE* image) {
     if (ImagePGM == NULL){
         // Allocation mémoire échouée
         free(ImagePGM);
+        showMenuText(201);
         return NULL;
     }
-
     char chaine [3];
     int verif = fscanf(image,"%s", chaine);
-
     if (chaine[1] == '5') // Egal au format p5
-        {
-            fscanf(image, "%d %d", ImagePGM->width, ImagePGM->height);
-            fscanf(image, "%d", ImagePGM->vmax);
-            ImagePGM->color=malloc(ImagePGM->height * sizeof(unsigned char*));
-            if(ImagePGM->color == NULL){
-                return NULL;
-                // Allocation mémoire échouée.
+    {
+        fscanf(image, "%d %d", &ImagePGM->width, &ImagePGM->height);
+        fscanf(image, "%d", &ImagePGM->vmax);
+        ImagePGM->color=malloc(ImagePGM->height * sizeof(unsigned char*));
+        
+        if(ImagePGM->color == NULL){
+            return NULL;
+            // Allocation mémoire échouée.
+        }
+        int i;
+        int j;
+        for (i = 0; i < ImagePGM->height; i++) {
+            ImagePGM->color[i]= malloc(ImagePGM->width * sizeof(unsigned char));
+            if(ImagePGM->color[i] == NULL) printf("ERROR %d",i);
+        }
+        for (j = 0; j < ImagePGM->height; j++) {
+            for (i = 0; i < ImagePGM->width; i++) {
+                unsigned char tmp;
+                fread(&tmp, sizeof(unsigned char), 1, image);
+                ImagePGM->color[j][i] = tmp; 
             }
-            int i;
-            int j;
-
-            for (i = 0; i < ImagePGM->height; i++) {
-                ImagePGM->color[i]= malloc(ImagePGM->width * sizeof(unsigned char));
-                if(ImagePGM->color[i] == NULL) printf("ERROR %d",i);
-            }
-
-            for (i=0; i < ImagePGM->width; i++ ){
-                for (j=0; j<ImagePGM->height; j++){
-                    unsigned char tmp;
-                    fread(&tmp, sizeof(unsigned char), 1, image);
-                    ImagePGM->color[i][j] = tmp;
-                }
-            }
+        }
     }
     else
         {
-        printf(" format inconnu\n");
+        printf("format inconnu\n");
+        showMenuText("102");
         return NULL;
     }
     imageIsLoadedPGM = 1;

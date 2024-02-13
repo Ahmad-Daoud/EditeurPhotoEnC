@@ -5,20 +5,7 @@
 #include "../include/menumain.h"
 #include "../include/openImage.h"
 
-typedef struct {
-    int width;
-    int height;
-    unsigned char **red;
-    unsigned char **green;
-    unsigned char **blue;
-} PPMstruct;
 
-typedef struct {
-    int width;
-    int height;
-    unsigned char** color;
-    int vmax;
-} PGMstruct;
 
 void effectChoose(int errorCode){
     if (imageIsLoadedPGM == 1 || imageIsLoadedPPM){
@@ -26,7 +13,7 @@ void effectChoose(int errorCode){
         // Image chargée
         printf("Veuillez choisir un effet parmis les effets suivants : \n");
         showEffectMenu();
-        scanf("%d", effectChoice);
+        scanf("%d", &effectChoice);
         chosenEffect(effectChoice);
     }
     else {
@@ -40,7 +27,7 @@ void showEffectMenu(){
     printf("2 : Mirroir. \n");
     printf("3 : Translation.\n");
     printf("4 : Scale \n");
-    printf("0 : Quitter \n")
+    printf("0 : Quitter \n");
 }
 void chosenEffect(int choice){
     if (choice == 1){
@@ -80,12 +67,13 @@ void translationPPM(){
 }
 void translationPGM(){
     int decal = 100;
-
-    PGMstruct tr;
+    
+    imagePGM tr;
     tr.width = loadedImagePGM->width;
     tr.height = loadedImagePGM->height;
     tr.vmax = loadedImagePGM->vmax;
     tr.color=malloc(tr.height * sizeof(unsigned char*));
+    
     int ii, i,j;
      for (ii = 0; ii < tr.height; ii++) {
         tr.color[ii]= malloc(tr.width * sizeof(unsigned char));
@@ -106,6 +94,6 @@ void translationPGM(){
         }
     }
     // Sucess
-
-
+    loadedImagePGM->color = tr.color;
+    showMenuText(0);
 }
