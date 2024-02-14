@@ -20,6 +20,7 @@ char* getFileExtension(char* imageName){
 }
 
 int loadImage(){
+    
     char imageName[100];
     char imagePath[100];
     const char* directory = "input/";
@@ -28,6 +29,8 @@ int loadImage(){
 
     scanf("%s", &imageName);
     snprintf(imagePath, sizeof(imagePath), "%s%s", directory, imageName);
+
+    
     char* extension = getFileExtension(imageName);
     if (strcmp(extension, "") == 0){
         // Pas d'extension ou le fichier commence avec un .
@@ -41,6 +44,7 @@ int loadImage(){
             if (imageLoad == NULL){
                 perror("Error opening file");
                 // image introuvable
+                showMenuText(104);
                 return 104;
             }
             else {
@@ -67,13 +71,14 @@ int loadImage(){
                     loadedImagePGM = createImagePGM(imageLoad);
                     if (loadedImagePGM != NULL) {
                         // Image chargée correctement et convertie en struct
-                            fclose(imageLoad);
-                            showMenuText(0);
+                        fclose(imageLoad);
+                        showMenuText(0);
                     }
                     else {
                         // Erreur
                         free(loadedImagePGM);
                         loadedImagePGM = NULL;
+                        fclose(imageLoad);
                         imageIsLoadedPGM = 0;
                         showMenuText(203);
                     }

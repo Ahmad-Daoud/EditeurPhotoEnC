@@ -6,6 +6,10 @@
 #include "../include/openImage.h"
 #include "../include/menumain.h"
 
+
+void savePGM();
+void savePPM();
+
 void saveImage(int errorCode){
     if (errorCode == 3){
         printf("Nom d'image existe déjà");
@@ -19,6 +23,9 @@ void saveImage(int errorCode){
             }
             else {
                 // Image NULL
+                imageIsLoadedPGM = 0;
+                imageIsLoadedPPM = 0;
+                showMenuText(101);
             }
         }
         else {
@@ -69,8 +76,7 @@ void savePPM(){
             }
             else{
                 int errorCode = 0;
-
-                fprintf(outputFile, "P6\n%d %d\n%d", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
+                fprintf(outputFile, "P6\n%d %d\n%d\n", loadedImagePPM->width, loadedImagePPM->height, loadedImagePPM->max_color_value);
                 // on écrit les données des pixels
                 fwrite(loadedImagePPM->pixels, sizeof(unsigned char), loadedImagePPM->width * loadedImagePPM->height * 3 + 1, outputFile);
                 fclose(outputFile);
@@ -120,11 +126,12 @@ void savePGM(){
             else{
 
                 // Ecriture du header pgm
-                fprintf(outputFile, "%s\n%d %d\n%d", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
+                fprintf(outputFile, "%s\n%d %d\n%d\n", loadedImagePGM->format, loadedImagePGM->width, loadedImagePGM->height, loadedImagePGM->max_gray);
 
                 // Ecriture des données pixel
                 fwrite(loadedImagePGM->pixels, sizeof(unsigned char), loadedImagePGM->width * loadedImagePGM->height + 1, outputFile);
-
+                
+                // Succès!
                 fclose(outputFile);
                 printf("\033[2J\033[1;1H");
                 printf("Sauvegardé : %s \n ", fullOutput);

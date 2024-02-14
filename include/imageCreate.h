@@ -16,7 +16,6 @@ typedef struct {
     unsigned char* pixels;
 } imagePGM;
 
-
 extern int imageIsLoadedPGM;
 extern int imageIsLoadedPPM;
 imagePGM* createImagePGM(FILE* image);

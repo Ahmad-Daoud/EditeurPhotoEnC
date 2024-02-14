@@ -5,6 +5,7 @@
 #include "../include/openImage.h"
 #include "../include/imageRender.h"
 #include "../include/imageFilters.h"
+#include "../include/imageEffects.h"
 
 
 int showMenuText(int errorCode){
@@ -13,7 +14,9 @@ int showMenuText(int errorCode){
         printf("\033[2J\033[1;1H");
     }
     int choixMenu;
+    
     if (imageIsLoadedPGM == 1 || imageIsLoadedPPM == 1){
+        
         if (errorCode == 0){
             printf("Que voulez vous faire avec l'image? \n");
         }
@@ -86,15 +89,14 @@ void showChoiceMenu(){
         printf("1 : Choisir une image\n");
     }
     printf("2 : Ajouter des filtres à votre image\n");
-    printf("3 : Sauvegarder votre image\n");
+    printf("3 : Ajouter des effets\n");
+    printf("4 : Sauvegarder votre image\n");
     printf("0 : Quitter l'application\n");
 }
 void funChoixMenu(int choixMenu){
     
     if (choixMenu == 0){
         int errorCode;
-        printf("wtf3");
-        scanf("%d", errorCode);
         exit(EXIT_SUCCESS);
         
     }
@@ -113,10 +115,14 @@ void funChoixMenu(int choixMenu){
     }
     if(choixMenu == 2){
         // ajouter des filtres
+        filterChoice(0);
     }
-    else if(choixMenu == 3){
+    if(choixMenu == 3){
+        // ajouter des effets
+        effectChoose(0);
+    }
+    else if(choixMenu == 4){
         /// Sauvegarder image
-        int errorCode = 0;
         saveImage(0);
     }
     else {
