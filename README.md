@@ -28,6 +28,7 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 2 : Pas d'image à sauvegarder.
       - Code 3 : Le nom d'image est déjà utilisé.
       - Code 4 : Pas d'image choisie.
+      - Code 5 : Fonctionalité en developpement.
 ### Codes 100 : Problèmes d'image
       - Code 101 : L'image n'a pas été chargée correctement.
       - Code 102 : L'image n'est pas du format attendu.
@@ -43,3 +44,5 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code 203 : Erreur de création de struct (inconnu).
 ### Autres Codes : 
       - Code -1 : Sauvegarde de l'image (pas une erreur).
+      - Code -2 : Filtre appliqué.
+      - Code -3 : Effet appliqué.

@@ -7,6 +7,8 @@
         "openimage.h": "c",
         "imagecreate.h": "c",
         "imagerender.h": "c",
-        "imagefilters.h": "c"
+        "imagefilters.h": "c",
+        "imageeffects.h": "c",
+        "math.h": "c"
     }
 }

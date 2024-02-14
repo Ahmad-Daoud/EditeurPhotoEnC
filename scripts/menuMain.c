@@ -115,7 +115,7 @@ void funChoixMenu(int choixMenu){
     }
     if(choixMenu == 2){
         // ajouter des filtres
-        
+        filterChoice(0);
     }
     if(choixMenu == 3){
         // ajouter des effets
@@ -123,9 +123,6 @@ void funChoixMenu(int choixMenu){
     }
     else if(choixMenu == 4){
         /// Sauvegarder image
-        int errorCode = 0;
-        printf("hello");
-        scanf("%d", errorCode);
         saveImage(0);
     }
     else {
