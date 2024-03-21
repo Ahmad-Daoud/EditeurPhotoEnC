@@ -43,6 +43,18 @@ char* errorCodeDisplay(int errorCode){
     if (errorCode == 1){
         response ="Veuillez choisir une option valide!";
     }
+    else if (errorCode == 2 ){
+        response = "Pas d'image à sauvegarder.";
+    }
+    else if (errorCode == 3 ){
+        response = "Le nom d'image est déja utilisé.";
+    }
+    else if (errorCode == 4 ){
+        response = "Pas d'image choisie.";
+    }
+    else if (errorCode == 5 ){
+        response = "Fonctionalité en developpement!";
+    }
     else if (errorCode == 101){
         response = "L'image n'a pas pu être chargée correctement. Code d'erreur 101.";
     }
@@ -61,11 +73,29 @@ char* errorCodeDisplay(int errorCode){
     else if (errorCode == 106){
         response = "Erreur données de votre image. Code d'erreur 106";
     }
+    else if (errorCode == 107){
+        response = "Données pixel corrompus. Code d'erreur 107";
+    }
+    else if (errorCode == 108){
+        response = "Erreur taille d'image. Code d'erreur 108";
+    }
     else if (errorCode == 201){
         response = "Allocation mémoire échouée. Code d'erreur 201";
     }
+    else if (errorCode == 202){
+        response = "Erreur lors de sauvegarde. Code d'erreur 202";
+    }
+    else if (errorCode == 203){
+        response = "Erreur de création de struct. Code d'erreur 203";
+    }
     else if (errorCode == -1){
-        response = "";
+        response ="Image sauvegardée";
+    }
+    else if (errorCode == -2){
+        response = "Filtre appliqué";
+    }
+    else if (errorCode == -3){
+        response = "Effet appliqué";
     }
     else {
         char codeString[20];

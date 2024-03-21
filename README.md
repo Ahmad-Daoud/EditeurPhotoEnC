@@ -21,6 +21,26 @@ Ce projet a été fait pour un cours en c avancé à l'ESGI. Il a pour but de cr
 # Introduction 
 Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et pgm, étant écrit en C et sans utiliser des libraries de filtres d'images.
 
+# Modes d'utilisations
+### Les filtres actuels : 
+      - Filtre négatif
+      - Floutage
+      - Pixélisation
+      - Filtre Sobel
+      - Seuillage
+### Les effets actuels : 
+      - Translation
+      - Mirroir
+      - Rotation (non fonctionnel actuellement)
+# Fonctionalités 
+### Ajoutées :
+      - Filtres pour PGM
+      - Effets pour PGM
+      - Sauvegarde avec noms customisables
+      - Erreurs documentées
+### A ajouter : 
+      - Filtres et Effets pour PPM
+      - Interface GUI
 # Codes d'erreurs
 ### Codes 000 : Erreurs Simple
       - Code 0 : Aucune erreur.
@@ -46,3 +66,11 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Code -1 : Sauvegarde de l'image (pas une erreur).
       - Code -2 : Filtre appliqué.
       - Code -3 : Effet appliqué.
+# Bibliographies 
+Beaucoup de sources ont étés utilisées afin d'accomplir ce projet.
+Les compétences sont transférées par les sources, et acquises par la pratique.
+### Sources : 
+      -  Documentations du langage C pour les fonctions std.io et stdlib.h
+      - StackOverflow
+      - ChatGPT
+      - Cours reçus à l'ESGI
