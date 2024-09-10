@@ -3,6 +3,7 @@
 ## Expliquation du projet
 
 Ce projet a été fait pour un cours en c avancé à l'ESGI. Il a pour but de créer une application avec une interface graphique sans utiliser des librairies pour l'edition d'images.
+Il est basé sur les formats PPM (couleurs) et PGM (noir et blanc), des formats d'images simples qui sont convertis en structs avant les modifications.
 
 # Table de matières
 - ## I - Introduction
@@ -22,6 +23,7 @@ Ce projet a été fait pour un cours en c avancé à l'ESGI. Il a pour but de cr
 Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et pgm, étant écrit en C et sans utiliser des libraries de filtres d'images.
 
 # Modes d'utilisations
+Les images PPM sont actuellement fonctionnelles mais contiennent des erreurs, comme le changement de la couleur de l'image lors de la sauvegarde.
 ### Les filtres actuels : 
       - Filtre négatif
       - Floutage
@@ -30,7 +32,7 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
       - Seuillage
 ### Les effets actuels : 
       - Translation
-      - Mirroir
+      - Mirroir (non fonctionnel actuellement)
       - Rotation (non fonctionnel actuellement)
 # Fonctionalités 
 ### Ajoutées :
@@ -70,7 +72,7 @@ Le projet d'éditeur photo a pour objectif d'editer les photos de format ppm et 
 Beaucoup de sources ont étés utilisées afin d'accomplir ce projet.
 Les compétences sont transférées par les sources, et acquises par la pratique.
 ### Sources : 
-      -  Documentations du langage C pour les fonctions std.io et stdlib.h
+      - Documentations du langage C pour les fonctions std.io et stdlib.h
       - StackOverflow
       - ChatGPT
       - Cours reçus à l'ESGI
